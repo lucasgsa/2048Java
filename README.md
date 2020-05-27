@@ -1,4 +1,17 @@
-*2048*
+#2048
 
-Projeto criado em java que visa de forma econômica e legível, criar um código modular em termos do jogo em si.
-Quanto a parte gráfica, é algo ainda em andamento, mas que vem tendo progresso.
+Projeto criado na linguagem java que visa de forma econômica e legível, criar um código modular.
+Quanto a parte gráfica, é algo ainda em andamento por eu não ter ainda muita prática, mas que vem tendo progresso.
+
+**Métodos utilizados:**
+- Readme ainda em construção.
+
+**Screenshots**:
+<img src="./exempleImages/win.png" width="400" height="800"> <img src="./exempleImages/recorde.png" width="400" height="800">
+
+**Coisas a fazer:**
+- Centralizar melhor os números dentro do seu quadrado.
+- Colocar mais contraste nos números.
+- Adicionar tela de perdeu.
+
+**Version: 1.0.0**

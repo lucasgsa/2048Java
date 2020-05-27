@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.util.Map;
 
 public class Game2048 extends Canvas implements Runnable, KeyListener {
 
@@ -21,6 +22,8 @@ public class Game2048 extends Canvas implements Runnable, KeyListener {
 	MainGameBruto game = new MainGameBruto();
 	
 	KeyBoardQueue keyState = new KeyBoardQueue();
+	
+	ColorConstants cores = new ColorConstants();
 	
 	public Game2048() {
 		this.setPreferredSize(new Dimension(windowsSize[0], windowsSize[1]));
@@ -65,9 +68,12 @@ public class Game2048 extends Canvas implements Runnable, KeyListener {
 		checarMovimento();
 	}
 	
-	public void desenharEsqueleto(Graphics g) {
-		g.setColor(new Color(153, 153, 102));
+	public void limparTela(Graphics g) {
+		g.setColor(new Color(198, 190, 173));
 		g.fillRect(0, 0, windowsSize[0], windowsSize[1]);
+	}
+	
+	public void desenharEsqueleto(Graphics g) {
 		
 		g.setColor(Color.BLACK);
 		g.drawLine(200, 0, 200, 800);
@@ -82,17 +88,13 @@ public class Game2048 extends Canvas implements Runnable, KeyListener {
 		
 		g.drawLine(0, 600, 800, 600);
 		
-		g.setColor(Color.LIGHT_GRAY);
-		
-		g.fillRect(0, 800, 800, 200);
 	}
 	
 	public void desenharNumeros(Graphics g) {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (game.matriz[j][i] != 0 ) {
-					int corInt = (int) Math.sqrt(game.matriz[j][i]);
-					g.setColor(new Color(corInt, corInt+15, corInt+15));
+					g.setColor(cores.getColor(game.matriz[j][i]));
 					g.fillRect(200*i, 200*j, 200, 200);
 				}
 				g.setColor(Color.BLACK);
@@ -103,9 +105,14 @@ public class Game2048 extends Canvas implements Runnable, KeyListener {
 	}
 	
 	public void desenharPlacarEMenu(Graphics g) {
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(0, 800, 800, 200);
+		
 		g.setFont(new Font("Times New Roman", 1, 40));
+		g.setColor(Color.BLACK);
 		if (game.ganhou) g.setColor(Color.GREEN);
-		g.drawString("PONTUAÇÃO: "+game.placar(), 230, 850);	
+		g.drawString("PONTUAÇÃO: "+game.placar(), 230, 850);
+		
 		g.setFont(new Font("Times New Roman", 1, 20));
 		g.setColor(Color.BLACK);
 		g.drawString("Pressiona Z - para voltar a jogada. ", 200, 900);	
@@ -120,9 +127,11 @@ public class Game2048 extends Canvas implements Runnable, KeyListener {
 		}
 		Graphics g = bs.getDrawGraphics();
 		
-		desenharEsqueleto(g);
+		limparTela(g);
 		
 		desenharNumeros(g);
+		
+		desenharEsqueleto(g);
 		
 		desenharPlacarEMenu(g);
 		
