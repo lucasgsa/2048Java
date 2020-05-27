@@ -7,11 +7,12 @@ Quanto a parte gráfica, é algo ainda em andamento por eu não ter ainda muita 
 - Readme ainda em construção.
 
 **Screenshots**:
-<img src="./exempleImages/win.png" width="400" height="800"> <img src="./exempleImages/recorde.png" width="400" height="800">
+<img src="./exempleImages/win.png" width="100" height="150"> <img src="./exempleImages/recorde.png" width="100" height="150">
 
 **Coisas a fazer:**
 - Centralizar melhor os números dentro do seu quadrado.
 - Colocar mais contraste nos números.
 - Adicionar tela de perdeu.
+- Organizar melhor os arquivos de código e seus nomes.
 
 **Version: 1.0.0**
