@@ -1,16 +1,31 @@
-package com.kpnzstudios;
+package com.kpnzstudios.UTILS;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+/**
+ * Classe criada como uma fila para o teclado, de forma a organizar melhor os comandos do usuário.
+ * @author Lucasgsa
+ *
+ */
 public class KeyBoardQueue {
 	
+	/**
+	 * Armazena os códigos de teclas na fila.
+	 */
 	private ArrayList<String> queue;
 
+	/**
+	 * Construtor da classe
+	 */
 	public KeyBoardQueue() {
 		queue = new ArrayList<String>();
 	}
 	
+	/**
+	 * Retorna se há algum direcional para direita na fila.
+	 * @return boolean
+	 */
 	public boolean hasRight() {
 		if (queue.contains("RIGHT")) {
 			queue.remove("RIGHT");
@@ -19,6 +34,10 @@ public class KeyBoardQueue {
 		return false;
 	}
 	
+	/**
+	 * Retorna se há algum direcional para esquerda na fila.
+	 * @return boolean
+	 */
 	public boolean hasLeft() {
 		if (queue.contains("LEFT")) {
 			queue.remove("LEFT");
@@ -27,6 +46,10 @@ public class KeyBoardQueue {
 		return false;
 	}
 	
+	/**
+	 * Retorna se há algum direcional para cima na fila.
+	 * @return boolean
+	 */
 	public boolean hasUp() {
 		if (queue.contains("UP")) {
 			queue.remove("UP");
@@ -35,6 +58,10 @@ public class KeyBoardQueue {
 		return false;
 	}
 	
+	/**
+	 * Retorna se há algum direcional para baixo na fila.
+	 * @return boolean
+	 */
 	public boolean hasDown() {
 		if (queue.contains("DOWN")) {
 			queue.remove("DOWN");
@@ -43,6 +70,10 @@ public class KeyBoardQueue {
 		return false;
 	}
 	
+	/**
+	 * Retorna se a tecla Z está na fila para ser executada.
+	 * @return boolean
+	 */
 	public boolean hasZ() {
 		if (queue.contains("Z")) {
 			queue.remove("Z");
@@ -51,6 +82,10 @@ public class KeyBoardQueue {
 		return false;
 	}
 	
+	/**
+	 * Retorna se a tecla R está na fila para ser executada.
+	 * @return boolean
+	 */
 	public boolean hasR() {
 		if (queue.contains("R")) {
 			queue.remove("R");
@@ -59,6 +94,10 @@ public class KeyBoardQueue {
 		return false;
 	}
 	
+	/**
+	 * Recebe uma tecla pressionada do keyListener.
+	 * @param KeyEvent - usando keyListener e passando o evento de keyPressed para dentro dessa função.
+	 */
 	public void pressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if (keyCode == KeyEvent.VK_RIGHT && !queue.contains("RIGHT")) {

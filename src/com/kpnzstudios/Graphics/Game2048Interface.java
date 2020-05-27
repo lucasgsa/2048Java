@@ -1,4 +1,4 @@
-package com.kpnzstudios;
+package com.kpnzstudios.Graphics;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -10,22 +10,26 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.util.Map;
 
-public class Game2048 extends Canvas implements Runnable, KeyListener {
+import com.kpnzstudios.KPNz2048.Main2048;
+import com.kpnzstudios.UTILS.ColorConstants;
+import com.kpnzstudios.UTILS.KeyBoardQueue;
 
-	/**
-	 * 
-	 */
+public class Game2048Interface extends Canvas implements Runnable, KeyListener {
+
 	private static final long serialVersionUID = 1;
 
+	/**
+	 * Define tamanho da tela.
+	 */
 	final int[] windowsSize = {800,1000};
 	
-	MainGameBruto game = new MainGameBruto();
+	Main2048 game = new Main2048();
 	
 	KeyBoardQueue keyState = new KeyBoardQueue();
 	
 	ColorConstants cores = new ColorConstants();
 	
-	public Game2048() {
+	public Game2048Interface() {
 		this.setPreferredSize(new Dimension(windowsSize[0], windowsSize[1]));
 		this.addKeyListener(this);
 	}
@@ -43,6 +47,9 @@ public class Game2048 extends Canvas implements Runnable, KeyListener {
 		}
 	}
 	
+	/**
+	 * Verifica a queue de teclas e define alguma função para cada.
+	 */
 	public void checarMovimento() {
 		if (keyState.hasUp()) {
 			game.paraCima();
@@ -64,15 +71,28 @@ public class Game2048 extends Canvas implements Runnable, KeyListener {
 		}
 	}
 	
+	/**
+	 * Ação a ser feita a cada tick do jogo.
+	 */
 	public void tick() {
 		checarMovimento();
 	}
 	
+	/**
+	 * Limpa a tela com uma cor sólida.
+	 * Recebe como parâmetro o graphics da tela.
+	 * @param Graphics
+	 */
 	public void limparTela(Graphics g) {
 		g.setColor(new Color(198, 190, 173));
 		g.fillRect(0, 0, windowsSize[0], windowsSize[1]);
 	}
 	
+	/**
+	 * Desenha as linhas entre os quadrados.
+	 * Recebe como parâmetro o graphics da tela.
+	 * @param Graphics
+	 */
 	public void desenharEsqueleto(Graphics g) {
 		
 		g.setColor(Color.BLACK);
@@ -90,35 +110,53 @@ public class Game2048 extends Canvas implements Runnable, KeyListener {
 		
 	}
 	
+	/**
+	 * Desenha os números e seus respectivos quadrados.
+	 * Recebe como parâmetro o graphics da tela.
+	 * @param Graphics
+	 */
 	public void desenharNumeros(Graphics g) {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (game.matriz[j][i] != 0 ) {
 					g.setColor(cores.getColor(game.matriz[j][i]));
 					g.fillRect(200*i, 200*j, 200, 200);
+					
+					g.setColor(Color.BLACK);
+					g.setFont(new Font("Arial", 1, 60-(i+"").length()*10));
+					g.drawString(game.matriz[j][i]+"", 200*i+(-(i+"").length()*70)+80, 200*j+120);	
 				}
-				g.setColor(Color.BLACK);
-				g.setFont(new Font("Arial", 1, 60-(i+"").length()*10));
-				g.drawString(game.matriz[j][i]+"", 200*i+(-(i+"").length()*70)+80, 200*j+120);	
 			}
 		}
 	}
 	
+	/**
+	 * Desenha o painel inferior, o placar, e os textos auxiliares.
+	 * Recebe como parâmetro o graphics da tela.
+	 * @param Graphics
+	 */
 	public void desenharPlacarEMenu(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 800, 800, 200);
 		
 		g.setFont(new Font("Times New Roman", 1, 40));
 		g.setColor(Color.BLACK);
-		if (game.ganhou) g.setColor(Color.GREEN);
+		if (game.ganhou()) g.setColor(Color.GREEN);
 		g.drawString("PONTUAÇÃO: "+game.placar(), 230, 850);
 		
 		g.setFont(new Font("Times New Roman", 1, 20));
 		g.setColor(Color.BLACK);
 		g.drawString("Pressiona Z - para voltar a jogada. ", 200, 900);	
 		g.drawString("Pressione R - para resetar a partida. (Cuidado)", 200, 950);	
+		
+		g.drawLine(0, 800, 1000, 800);
 	}
 	
+	/**
+	 * Função que controla todo o render do jogo.
+	 * Recebe como parâmetro o graphics da tela.
+	 * @param Graphics
+	 */
 	public void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {

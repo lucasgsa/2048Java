@@ -1,12 +1,25 @@
-package com.kpnzstudios;
+package com.kpnzstudios.UTILS;
 
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Classe que armazena as constantes de cores para os quadrados de cada valor no jogo.
+ * @author Lucasgsa
+ *
+ */
 public class ColorConstants {
+	
+	/**
+	 * Mapa que armazena as cores, sendo a chave o número em questão que quero saber a cor e como
+	 * valor a cor.
+	 */
 	private Map<Integer, Color> cores;
 	
+	/**
+	 * Construtor da classe
+	 */
 	public ColorConstants() {
 		cores = new HashMap<Integer, Color>();
 		cores.put(2, new Color(239, 227, 217));
@@ -44,6 +57,12 @@ public class ColorConstants {
 		cores.put(131072, new Color(0, 127, 194));
 	}
 	
+	/**
+	 * Retorna a cor do número.
+	 * Caso não tenha sido colocada ainda, retorna a cor preta.
+	 * @param id - pontuação da peça
+	 * @return Color, retorna a cor.
+	 */
 	public Color getColor(int id) {
 		if (cores.containsKey(id)) {
 			return cores.get(id);

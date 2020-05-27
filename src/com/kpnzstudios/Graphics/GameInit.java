@@ -1,10 +1,10 @@
-package com.kpnzstudios;
+package com.kpnzstudios.Graphics;
 
 import javax.swing.JFrame;
 
-public class GameMain {
+public class GameInit {
 	public static void main(String[] args) {
-		Game2048 game = new Game2048();
+		Game2048Interface game = new Game2048Interface();
 		JFrame frame = new JFrame("2048");
 		frame.add(game);
 		frame.setResizable(false);
