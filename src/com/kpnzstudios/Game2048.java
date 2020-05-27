@@ -66,7 +66,7 @@ public class Game2048 extends Canvas implements Runnable, KeyListener {
 	}
 	
 	public void desenharEsqueleto(Graphics g) {
-		g.setColor(Color.white);
+		g.setColor(new Color(153, 153, 102));
 		g.fillRect(0, 0, windowsSize[0], windowsSize[1]);
 		
 		g.setColor(Color.BLACK);
@@ -88,16 +88,16 @@ public class Game2048 extends Canvas implements Runnable, KeyListener {
 	}
 	
 	public void desenharNumeros(Graphics g) {
-		g.setFont(new Font("Arial", 1, 40));
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (game.matriz[j][i] != 0 ) {
-					int corInt = (int) (Math.sqrt(game.matriz[j][i])*10);
-					g.setColor(new Color(corInt, corInt, corInt));
+					int corInt = (int) Math.sqrt(game.matriz[j][i]);
+					g.setColor(new Color(corInt, corInt+15, corInt+15));
 					g.fillRect(200*i, 200*j, 200, 200);
 				}
-				g.setColor(Color.BLUE);
-				g.drawString(game.matriz[j][i]+"", 200*i+50, 200*j+50);	
+				g.setColor(Color.BLACK);
+				g.setFont(new Font("Arial", 1, 60-(i+"").length()*10));
+				g.drawString(game.matriz[j][i]+"", 200*i+(-(i+"").length()*70)+80, 200*j+120);	
 			}
 		}
 	}
