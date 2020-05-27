@@ -7,7 +7,7 @@ Quanto a parte gráfica, é algo ainda em andamento por eu não ter ainda muita 
 - Readme ainda em construção.
 
 **Screenshots**:
-<img src="./exempleImages/win.png" width="100" height="150"> <img src="./exempleImages/recorde.png" width="100" height="150">
+<img src="./exempleImages/win.png" width="200" height="300"> <img src="./exempleImages/recorde.png" width="200" height="300">
 
 **Coisas a fazer:**
 - Centralizar melhor os números dentro do seu quadrado.
