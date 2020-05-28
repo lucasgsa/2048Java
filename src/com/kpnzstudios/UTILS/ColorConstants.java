@@ -67,6 +67,6 @@ public class ColorConstants {
 		if (cores.containsKey(id)) {
 			return cores.get(id);
 		}
-		return new Color(0,0,0);
+		return new Color(0,0,255);
 	}
 }

@@ -123,8 +123,10 @@ public class Game2048Interface extends Canvas implements Runnable, KeyListener {
 					g.fillRect(200*i, 200*j, 200, 200);
 					
 					g.setColor(Color.BLACK);
-					g.setFont(new Font("Arial", 1, 60-(i+"").length()*10));
-					g.drawString(game.matriz[j][i]+"", 200*i+(-(i+"").length()*70)+80, 200*j+120);	
+					int qtdNumero = (game.matriz[j][i]+"").length();
+					int tamanhoFont = (int) ((60-(qtdNumero*2))*3/4);
+					g.setFont(new Font("Times New Roman", 0, 60-qtdNumero*2));
+					g.drawString(game.matriz[j][i]+"", (200*i)+100-(tamanhoFont*qtdNumero)/3, (200*j)+100+tamanhoFont/2);
 				}
 			}
 		}

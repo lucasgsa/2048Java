@@ -17,7 +17,7 @@ public class Main2048 {
 	/**
 	 * Valores possíveis de aparecer de forma inicial ou quando há um movimento.
 	 */
-	int[] initRandom = {2,4};
+	int[] initRandom = {2, 4};
 	
 	/**
 	 * Armazena se o jogador já chegou a 2048 em alguma peça e portanto ganhou o jogo.
