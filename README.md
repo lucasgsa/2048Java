@@ -17,7 +17,7 @@ Quanto a parte gráfica, é algo ainda em andamento por eu não ter ainda muita 
 **Screenshots**:
 
 
-<img src="./exempleImages/win.png" width="200" height="300"> <img src="./exempleImages/recorde.png" width="200" height="300">
+<img src="./exempleImages/init.png" width="200" height="350"> <img src="./exempleImages/win.png" width="200" height="350"> <img src="./exempleImages/recorde.png" width="200" height="350">
 
 **Coisas a fazer:**
 
@@ -25,5 +25,7 @@ Quanto a parte gráfica, é algo ainda em andamento por eu não ter ainda muita 
 - Colocar mais contraste nos números.
 - Adicionar tela de perdeu.
 - Organizar melhor os arquivos de código e seus nomes.
+- Criar animações e sons.
+- Salvar o recorde.
 
 **Version: 1.0.0**

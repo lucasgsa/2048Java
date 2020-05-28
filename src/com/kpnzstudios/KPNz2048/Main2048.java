@@ -16,8 +16,13 @@ public class Main2048 {
 	
 	/**
 	 * Valores possíveis de aparecer de forma inicial ou quando há um movimento.
+	 * Todos os valores têm a mesma chance, portanto caso queira que um apareça mais que outro,
+	 * escreva-o mais de uma vez.
+	 * Ex: {2,2,2,4}
+	 * 	2: 75%
+	 * 	3: 25%
 	 */
-	int[] initRandom = {2, 4};
+	int[] initRandom = {2, 2, 2, 4};
 	
 	/**
 	 * Armazena se o jogador já chegou a 2048 em alguma peça e portanto ganhou o jogo.
