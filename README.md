@@ -17,7 +17,7 @@ Quanto a parte gráfica, é algo ainda em andamento por eu não ter ainda muita 
 **Screenshots**:
 
 
-<img src="./exempleImages/init.png" width="200" height="350"> <img src="./exempleImages/win.png" width="200" height="350"> <img src="./exempleImages/recorde.png" width="200" height="350">
+<img src="./exempleImages/init.png" width="200" height="320"> <img src="./exempleImages/win.png" width="200" height="320"> <img src="./exempleImages/recorde.png" width="200" height="320">
 
 **Coisas a fazer:**
 
