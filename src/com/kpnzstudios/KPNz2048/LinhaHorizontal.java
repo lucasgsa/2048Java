@@ -2,11 +2,10 @@ package com.kpnzstudios.KPNz2048;
 
 /**
  * 
- * Essa classe considera uma array de inteiros de 4 valores, podendo apenas realizar operações para direita.
+ * Essa classe considera uma array de inteiros de 4 valores, podendo realizar operações para direita e esquerda.
  * Já que no jogo em questão, qualquer tipo de movimento pode ser transformado e divido em apenas uma linha,
  * e independente da direção, pode-se usar a mesma classe LinhaHorizontal para todos os tipos de movimentação,
- * precisando apenas de uma simples conversão de direção durante a criação da linha e durante a reinstalação
- * dos números na matriz após seu movimento.
+ * precisando apenas de uma simples conversão de direção.
  * 
  * @author Lucasgsa
  *
@@ -42,14 +41,17 @@ public class LinhaHorizontal {
 	 * Deve ser usada quando se tem um movimento para esquerda.
 	 * @return
 	 */
-	public int[] reverseValues() {
-		int[] temp = {linha[3], linha[2], linha[1], linha[0]};
+	private int[] reverseValues() {
+		int[] temp = new int[linha.length];
+		for (int i = 0; i < linha.length; i++) {
+			temp[linha.length-i-1] = linha[i];
+		}
 		return temp;
 	}
 	
 	/**
 	 * Movimenta todos os quadrados para direita caso haja espaço.
-	 * Deixando apenas os 0 na direita caso houver.
+	 * Deixando apenas os 0 na esquerda caso houver.
 	 * Retorna true caso haja mudança e false caso não.
 	 * @return boolean
 	 */
@@ -100,7 +102,7 @@ public class LinhaHorizontal {
 	}
 	
 	/**
-	 * Faz uma junção entre as duas funções anteriormente criadas,
+	 * Faz uma junção entre as duas funções de movimentação da linha anteriormente criadas,
 	 * de forma que façam com que elas funcionem de forma harmônica.
 	 * Retorna true caso haja mudança e false caso não.
 	 * @return boolean
@@ -110,5 +112,19 @@ public class LinhaHorizontal {
 		boolean b2 = this.jogarDireitaFundir();
 		boolean b3 = this.jogarDireitaMovimentar();
 		return (b1 | b2 | b3);
+	}
+	
+	/**
+	 * Faz uma junção entre as duas funções de movimentação da linha anteriormente criadas,
+	 * de forma que façam com que elas funcionem de forma harmônica.
+	 * Retorna true caso haja mudança e false caso não.
+	 * @return
+	 */
+	public boolean jogarEsquerda() {
+		// Para mover pra esquerda basta inverter a array, mover para a direita e reverter novamente.
+		linha = reverseValues();
+		boolean b1 = this.jogarDireita();
+		linha = reverseValues();
+		return b1;
 	}
 }

@@ -2,10 +2,17 @@ package com.kpnzstudios.KPNz2048;
 
 import java.util.Random;
 
+import com.kpnzstudios.UTILS.UtilFunctions;
+
 public class Main2048 {
 	
 	/**
-	 * Armazena uma matriz de arrays 4x4.
+	 * Define o tamanho da matriz do jogo.
+	 */
+	private int tamanhoJogo = 4;
+	
+	/**
+	 * Armazena uma matriz de arrays.
 	 */
 	public int[][] matriz;
 	
@@ -33,7 +40,7 @@ public class Main2048 {
 	 * Construtor da classe.
 	 */
 	public Main2048() {
-		matriz = new int[4][4];
+		matriz = new int[tamanhoJogo][tamanhoJogo];
 		adicionarAleatorio();
 		matrizBackup = matriz;
 	}
@@ -53,8 +60,8 @@ public class Main2048 {
 	public void adicionarAleatorio() {
 		Random gerador = new Random();
 		while (true){
-			int x = gerador.nextInt(4);
-			int y = gerador.nextInt(4);	
+			int x = gerador.nextInt(tamanhoJogo);
+			int y = gerador.nextInt(tamanhoJogo);	
 			if (matriz[x][y] == 0) {
 				matriz[x][y] = initRandom[gerador.nextInt(initRandom.length)];
 				break;
@@ -68,8 +75,8 @@ public class Main2048 {
 	 */
 	public int placar() {
 		int soma = 0;
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
+		for (int i = 0; i < tamanhoJogo; i++) {
+			for (int j = 0; j < tamanhoJogo; j++) {
 				if (matriz[i][j] == 2048) ganhou = true;
 				soma += matriz[i][j];
 			}
@@ -91,7 +98,7 @@ public class Main2048 {
 	 */
 	public void resetar() {
 		matrizBackup = matriz;
-		matriz = new int[4][4];
+		matriz = new int[tamanhoJogo][tamanhoJogo];
 		adicionarAleatorio();
 	}
 	
@@ -104,9 +111,9 @@ public class Main2048 {
 	
 	/**
 	 * Função de jogar a matriz para direita.
+	 * Retorna um valor booleano se houver alguma mudança na matriz.
 	 */
-	public void paraDireita() {
-		int[][] tempBackup = clone();
+	private boolean jogarParaDireita() {
 		LinhaHorizontal linha1 = new LinhaHorizontal(matriz[0][0], matriz[0][1], matriz[0][2], matriz[0][3]);
 		boolean b1 = linha1.jogarDireita();
 		matriz[0] = linha1.getValues();
@@ -123,7 +130,16 @@ public class Main2048 {
 		boolean b4 = linha4.jogarDireita();
 		matriz[3] = linha4.getValues();
 		
-		if (b1 | b2 | b3 | b4) {
+		return (b1 | b2 | b3 | b4);
+	}
+	
+	/**
+	 * Função para jogar a matriz para direita.
+	 */
+	public void paraDireita() {
+		int[][] tempBackup = UtilFunctions.clone(matriz, tamanhoJogo);
+		boolean b1 = jogarParaDireita();
+		if (b1) {
 			adicionarAleatorio();
 			matrizBackup = tempBackup;
 		}
@@ -133,24 +149,11 @@ public class Main2048 {
 	 * Função para jogar a matriz para esquerda.
 	 */
 	public void paraEsquerda() {
-		int[][] tempBackup = clone();
-		LinhaHorizontal linha1 = new LinhaHorizontal(matriz[0][3], matriz[0][2], matriz[0][1], matriz[0][0]);
-		boolean b1 = linha1.jogarDireita();
-		matriz[0] = linha1.reverseValues();
-		
-		LinhaHorizontal linha2 = new LinhaHorizontal(matriz[1][3], matriz[1][2], matriz[1][1], matriz[1][0]);
-		boolean b2 = linha2.jogarDireita();
-		matriz[1] = linha2.reverseValues();
-		
-		LinhaHorizontal linha3 = new LinhaHorizontal(matriz[2][3], matriz[2][2], matriz[2][1], matriz[2][0]);
-		boolean b3 = linha3.jogarDireita();
-		matriz[2] = linha3.reverseValues();
-		
-		LinhaHorizontal linha4 = new LinhaHorizontal(matriz[3][3], matriz[3][2], matriz[3][1], matriz[3][0]);
-		boolean b4 = linha4.jogarDireita();
-		matriz[3] = linha4.reverseValues();
-		
-		if (b1 | b2 | b3 | b4) {
+		int[][] tempBackup = UtilFunctions.clone(matriz, tamanhoJogo);
+		matriz = UtilFunctions.girar90(matriz, 2);
+		boolean b1 = jogarParaDireita();
+		matriz = UtilFunctions.girar90(matriz, 2);
+		if (b1) {
 			adicionarAleatorio();
 			matrizBackup = tempBackup;
 		}
@@ -160,36 +163,11 @@ public class Main2048 {
 	 * Função para jogar a matriz para baixo.
 	 */
 	public void paraBaixo() {
-		int[][] tempBackup = clone();
-		LinhaHorizontal linha1 = new LinhaHorizontal(matriz[0][0], matriz[1][0], matriz[2][0], matriz[3][0]);
-		boolean b1 = linha1.jogarDireita();
-		matriz[0][0] = linha1.getValues()[0];
-		matriz[1][0] = linha1.getValues()[1];
-		matriz[2][0] = linha1.getValues()[2];
-		matriz[3][0] = linha1.getValues()[3];
-		
-		LinhaHorizontal linha2 = new LinhaHorizontal(matriz[0][1], matriz[1][1], matriz[2][1], matriz[3][1]);
-		boolean b2 = linha2.jogarDireita();
-		matriz[0][1] = linha2.getValues()[0];
-		matriz[1][1] = linha2.getValues()[1];
-		matriz[2][1] = linha2.getValues()[2];
-		matriz[3][1] = linha2.getValues()[3];
-		
-		LinhaHorizontal linha3 = new LinhaHorizontal(matriz[0][2], matriz[1][2], matriz[2][2], matriz[3][2]);
-		boolean b3 = linha3.jogarDireita();
-		matriz[0][2] = linha3.getValues()[0];
-		matriz[1][2] = linha3.getValues()[1];
-		matriz[2][2] = linha3.getValues()[2];
-		matriz[3][2] = linha3.getValues()[3];
-		
-		LinhaHorizontal linha4 = new LinhaHorizontal(matriz[0][3], matriz[1][3], matriz[2][3], matriz[3][3]);
-		boolean b4 = linha4.jogarDireita();
-		matriz[0][3] = linha4.getValues()[0];
-		matriz[1][3] = linha4.getValues()[1];
-		matriz[2][3] = linha4.getValues()[2];
-		matriz[3][3] = linha4.getValues()[3];
-		
-		if (b1 | b2 | b3 | b4) {
+		int[][] tempBackup = UtilFunctions.clone(matriz, tamanhoJogo);
+		matriz = UtilFunctions.girar90(matriz, 3);
+		boolean b1 = jogarParaDireita();
+		matriz = UtilFunctions.girar90(matriz);
+		if (b1) {
 			adicionarAleatorio();
 			matrizBackup = tempBackup;
 		}
@@ -199,51 +177,13 @@ public class Main2048 {
 	 * Função para jogar a matriz para cima.
 	 */
 	public void paraCima() {
-		int[][] tempBackup = clone();
-		LinhaHorizontal linha1 = new LinhaHorizontal(matriz[3][0], matriz[2][0], matriz[1][0], matriz[0][0]);
-		boolean b1 = linha1.jogarDireita();
-		matriz[0][0] = linha1.getValues()[3];
-		matriz[1][0] = linha1.getValues()[2];
-		matriz[2][0] = linha1.getValues()[1];
-		matriz[3][0] = linha1.getValues()[0];
-		
-		LinhaHorizontal linha2 = new LinhaHorizontal(matriz[3][1], matriz[2][1], matriz[1][1], matriz[0][1]);
-		boolean b2 = linha2.jogarDireita();
-		matriz[0][1] = linha2.getValues()[3];
-		matriz[1][1] = linha2.getValues()[2];
-		matriz[2][1] = linha2.getValues()[1];
-		matriz[3][1] = linha2.getValues()[0];
-		
-		LinhaHorizontal linha3 = new LinhaHorizontal(matriz[3][2], matriz[2][2], matriz[1][2], matriz[0][2]);
-		boolean b3 = linha3.jogarDireita();
-		matriz[0][2] = linha3.getValues()[3];
-		matriz[1][2] = linha3.getValues()[2];
-		matriz[2][2] = linha3.getValues()[1];
-		matriz[3][2] = linha3.getValues()[0];
-		
-		LinhaHorizontal linha4 = new LinhaHorizontal(matriz[3][3], matriz[2][3], matriz[1][3], matriz[0][3]);
-		boolean b4 = linha4.jogarDireita();
-		matriz[0][3] = linha4.getValues()[3];
-		matriz[1][3] = linha4.getValues()[2];
-		matriz[2][3] = linha4.getValues()[1];
-		matriz[3][3] = linha4.getValues()[0];
-		
-		if (b1 | b2 | b3 | b4) {
+		int[][] tempBackup = UtilFunctions.clone(matriz, tamanhoJogo);
+		matriz = UtilFunctions.girar90(matriz);
+		boolean b1 = jogarParaDireita();
+		matriz = UtilFunctions.girar90(matriz, 3);
+		if (b1) {
 			adicionarAleatorio();
 			matrizBackup = tempBackup;
 		}
-	}
-	
-	/**
-	 * Função retorna uma matriz clone da principal.
-	 */
-	public int[][] clone(){
-		int[][] temp = new int[4][4];
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				temp[i][j] = matriz[i][j];
-			}
-		}
-		return temp;
 	}
 }

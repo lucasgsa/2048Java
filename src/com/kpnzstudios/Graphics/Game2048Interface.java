@@ -8,7 +8,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
-import java.util.Map;
 
 import com.kpnzstudios.KPNz2048.Main2048;
 import com.kpnzstudios.UTILS.ColorConstants;
@@ -28,6 +27,8 @@ public class Game2048Interface extends Canvas implements Runnable, KeyListener {
 	KeyBoardQueue keyState = new KeyBoardQueue();
 	
 	ColorConstants cores = new ColorConstants();
+	
+	int tamanhoFontNumeros = 60;
 	
 	public Game2048Interface() {
 		this.setPreferredSize(new Dimension(windowsSize[0], windowsSize[1]));
@@ -124,8 +125,8 @@ public class Game2048Interface extends Canvas implements Runnable, KeyListener {
 					
 					g.setColor(Color.BLACK);
 					int qtdNumero = (game.matriz[j][i]+"").length();
-					int tamanhoFont = (int) ((60-(qtdNumero*2))*3/4);
-					g.setFont(new Font("Times New Roman", 0, 60-qtdNumero*2));
+					g.setFont(new Font("Times New Roman", 0, tamanhoFontNumeros));
+					int tamanhoFont = (int) ((tamanhoFontNumeros)*3/4); // Conversão de pt para px.
 					g.drawString(game.matriz[j][i]+"", (200*i)+100-(tamanhoFont*qtdNumero)/3, (200*j)+100+tamanhoFont/2);
 				}
 			}
